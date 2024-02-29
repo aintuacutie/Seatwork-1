@@ -1,0 +1,63 @@
+#include <iostream>
+#include <string>
+
+
+using namespace std;
+
+struct Character {
+    string name;
+    string work;
+    string origin;
+    int power;
+};
+
+int main() {
+    const int max_characters = 10;
+    Character characters[max_characters];
+
+    int num_characters = 0;
+    cout << "Enter the number of characters (up to 10): ";
+    cin >> num_characters;
+
+    if (num_characters < 1 || num_characters > max_characters) {
+        cout << "Invalid number of characters. Please enter between 1 and 10." << endl;
+        return 1;
+    }
+
+    for (int i = 0; i < num_characters; ++i) {
+        Character character;
+
+        cout << "Enter information for character " << (i + 1) << ":" << endl;
+
+        cout << "Name of the character: ";
+        cin.ignore();
+        getline(cin, character.name);
+
+        cout << "Work: ";
+        getline(cin, character.work);
+
+        cout << "Origin: ";
+        getline(cin, character.origin);
+
+        cout << "Power (integer): ";
+        cin >> character.power;
+        cin.ignore(); // Clear potential remaining characters from the line
+
+        characters[i] = character; 
+    }
+
+    int strongest_index = 0;
+    for (int i = 1; i < num_characters; ++i) {
+        if (characters[i].power > characters[strongest_index].power) {
+            strongest_index = i;
+        }
+    }
+
+    cout << "The strongest character is: " << endl;
+    cout << "  Name: " << characters[strongest_index].name << endl;
+    cout << "  Work: " << characters[strongest_index].work << endl;
+    cout << "  Origin: " << characters[strongest_index].origin << endl;
+    cout << "  Power: " << characters[strongest_index].power << endl;
+
+    return 0;
+}
